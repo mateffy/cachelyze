@@ -2,6 +2,12 @@
   "name": "@cachelyze/skill",
   "version": "0.2.0",
   "description": "Agent skill for cachelyze — teaches AI agents how to use cachelyze effectively",
+  "homepage": "https://cachelyze.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mateffy/cachelyze.git",
+    "directory": "packages/skill"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

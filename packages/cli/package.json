@@ -2,6 +2,12 @@
   "name": "@cachelyze/cli",
   "version": "0.2.0",
   "description": "CLI for cachelyze — cached codebase analysis for AI agents",
+  "homepage": "https://cachelyze.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mateffy/cachelyze.git",
+    "directory": "packages/cli"
+  },
   "type": "module",
   "bin": {
     "cachelyze": "./dist/index.js"

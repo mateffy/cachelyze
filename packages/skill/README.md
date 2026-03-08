@@ -1,0 +1,96 @@
+# @cachelyze/skill
+
+> **Alpha — work in progress.**
+
+Agent skill for cachelyze — teaches AI agents how to use cachelyze effectively.
+
+This package provides a [Agent Skill](https://agentskills.io) that helps AI coding agents understand and use cachelyze. It includes best practices, usage patterns, and integration guides.
+
+**Website:** [cachelyze.com](https://cachelyze.com)  
+**Repository:** [github.com/mateffy/cachelyze](https://github.com/mateffy/cachelyze)
+
+---
+
+## Installation
+
+```sh
+npm install @cachelyze/skill
+# or
+bun add @cachelyze/skill
+```
+
+---
+
+## What's a Skill?
+
+A "skill" is a teaching resource for AI agents. It provides:
+
+- Usage patterns and best practices
+- Integration examples  
+- Common pitfalls and how to avoid them
+- Configuration recommendations
+
+When an AI agent has access to this skill, it can more effectively use cachelyze to analyze codebases.
+
+---
+
+## Usage
+
+### For AI Agents
+
+Once this package is installed in your project, AI agents can reference the skill:
+
+```
+Use the cachelyze skill to analyze this codebase.
+```
+
+The skill will guide the agent on:
+- When to run cachelyze
+- How to interpret results
+- Best practices for cached analysis
+- Integration with different harnesses (Claude, OpenCode, Codex, etc.)
+
+### For Developers
+
+Install this skill package alongside cachelyze:
+
+```sh
+npm install cachelyze @cachelyze/skill
+```
+
+The skill is automatically available to compatible agents.
+
+---
+
+## Skill Contents
+
+The skill includes:
+
+- **Usage patterns** — When and how to use cachelyze effectively
+- **CLI reference** — Quick reference for common commands
+- **SDK patterns** — How to use the SDK programmatically
+- **Integration guides** — Working with different AI harnesses
+- **Troubleshooting** — Common issues and solutions
+
+---
+
+## Full Documentation
+
+For complete cachelyze documentation, see the [main README](https://github.com/mateffy/cachelyze#readme).
+
+---
+
+## Package Structure
+
+| Package | Description |
+|---------|-------------|
+| `cachelyze` | Full package — SDK + CLI |
+| `@cachelyze/core` | SDK only |
+| `@cachelyze/cli` | CLI only |
+| `@cachelyze/skill` | **Agent skill** (this package) |
+
+---
+
+## License
+
+MIT
