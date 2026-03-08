@@ -773,11 +773,11 @@
       border-radius: 3px;
       padding: 4px 6px;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 7px;
+      font-size: 11px;
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.8);
-      width: 90px;
-      height: 70px;
+      width: 240px;
+      height: 180px;
       overflow-y: auto;
       overflow-x: hidden;
       display: flex;
@@ -1897,178 +1897,115 @@
       animateMicroChat('micro-after', MICRO_AFTER_MESSAGES, 5000);
     });
     
-    // Micro terminal conversation data - continuous subagent/tool calls
+    // Micro terminal conversation data - continuous subagent/tool calls (infinite)
     const MICRO_BEFORE_MESSAGES = [
-      {
-        type: 'user',
-        content: 'Fix bug',
-        delay: 200
-      },
-      {
-        type: 'assistant',
-        content: 'Exploring...',
-        delay: 200
-      },
-      {
-        type: 'tool',
-        tool: 'subagent.explore',
-        loading: true,
-        duration: 6000,
-        delay: 100
-      },
-      {
-        type: 'assistant',
-        content: 'Reading files...',
-        delay: 200
-      },
-      {
-        type: 'tool',
-        tool: 'subagent.read',
-        loading: true,
-        duration: 2000,
-        delay: 100
-      },
-      {
-        type: 'assistant',
-        content: 'Found it!',
-        delay: 200
-      },
-      {
-        type: 'user',
-        content: 'Add feature',
-        delay: 800
-      },
-      {
-        type: 'assistant',
-        content: 'Exploring again...',
-        delay: 200
-      },
-      {
-        type: 'tool',
-        tool: 'subagent.explore',
-        loading: true,
-        duration: 6000,
-        delay: 100
-      },
-      {
-        type: 'assistant',
-        content: 'Done!',
-        delay: 200
-      }
+      { type: 'user', content: 'Fix bug', delay: 200 },
+      { type: 'assistant', content: 'Exploring...', delay: 200 },
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
+      { type: 'assistant', content: 'Reading files...', delay: 200 },
+      { type: 'tool', tool: 'subagent.read', loading: true, duration: 2000, delay: 100 },
+      { type: 'assistant', content: 'Found it!', delay: 200 },
+      { type: 'user', content: 'Add feature', delay: 800 },
+      { type: 'assistant', content: 'Exploring again...', delay: 200 },
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
+      { type: 'assistant', content: 'Done!', delay: 200 },
+      { type: 'user', content: 'Refactor auth', delay: 800 },
+      { type: 'assistant', content: 'Starting exploration...', delay: 200 },
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
+      { type: 'assistant', content: 'Analyzing...', delay: 200 },
+      { type: 'tool', tool: 'subagent.analyze', loading: true, duration: 3000, delay: 100 },
+      { type: 'assistant', content: 'Complete!', delay: 200 }
     ];
 
     const MICRO_AFTER_MESSAGES = [
-      {
-        type: 'user',
-        content: 'Fix bug',
-        delay: 200
-      },
-      {
-        type: 'assistant',
-        content: 'Using cache...',
-        delay: 200
-      },
-      {
-        type: 'tool',
-        tool: 'cachelyze.analyze',
-        loading: true,
-        duration: 800,
-        delay: 100
-      },
-      {
-        type: 'assistant',
-        content: 'Found it!',
-        delay: 200
-      },
-      {
-        type: 'user',
-        content: 'Add feature',
-        delay: 800
-      },
-      {
-        type: 'assistant',
-        content: 'Cache loaded...',
-        delay: 200
-      },
-      {
-        type: 'tool',
-        tool: 'cachelyze.analyze',
-        loading: true,
-        duration: 800,
-        delay: 100
-      },
-      {
-        type: 'assistant',
-        content: 'Done!',
-        delay: 200
-      }
+      { type: 'user', content: 'Fix bug', delay: 200 },
+      { type: 'assistant', content: 'Using cache...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
+      { type: 'assistant', content: 'Found it!', delay: 200 },
+      { type: 'user', content: 'Add feature', delay: 800 },
+      { type: 'assistant', content: 'Cache loaded...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
+      { type: 'assistant', content: 'Done!', delay: 200 },
+      { type: 'user', content: 'Refactor auth', delay: 800 },
+      { type: 'assistant', content: 'Using cache...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
+      { type: 'assistant', content: 'Quick check...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
+      { type: 'assistant', content: 'Complete!', delay: 200 }
     ];
     
-    // Full micro terminal chat animation
+    // Full micro terminal chat animation - infinite scrolling
     async function animateMicroChat(containerId, messages, loopDelay) {
       const container = document.getElementById(containerId);
       if (!container) return;
       
       const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+      let messageIndex = 0;
       
-      async function runSequence() {
-        container.innerHTML = '';
+      async function addNextMessage() {
+        const msg = messages[messageIndex % messages.length];
+        messageIndex++;
         
-        for (const msg of messages) {
-          await new Promise(r => setTimeout(r, msg.delay || 200));
+        await new Promise(r => setTimeout(r, msg.delay || 200));
+        
+        const el = document.createElement('div');
+        el.className = 'micro-chat-line';
+        
+        if (msg.type === 'user') {
+          el.innerHTML = `<span style="color:#fbbf24;">&gt;</span> ${msg.content}`;
+          container.appendChild(el);
+          scrollToBottom();
+        } else if (msg.type === 'assistant') {
+          el.innerHTML = `<span style="color:#a1a1aa;">→ ${msg.content}</span>`;
+          container.appendChild(el);
+          scrollToBottom();
+        } else if (msg.type === 'tool') {
+          const toolContent = msg.tool;
           
-          const el = document.createElement('div');
-          el.className = 'micro-chat-line';
-          
-          if (msg.type === 'user') {
-            el.innerHTML = `<span style="color:#fbbf24;">&gt;</span> ${msg.content}`;
+          if (msg.loading && msg.duration) {
+            el.innerHTML = `<span class="micro-spinner" style="display:inline-block;width:1em;text-align:center;">⠋</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">0.0s</span>`;
             container.appendChild(el);
-          } else if (msg.type === 'assistant') {
-            el.innerHTML = `<span style="color:#a1a1aa;">→ ${msg.content}</span>`;
-            container.appendChild(el);
-          } else if (msg.type === 'tool') {
-            const toolContent = msg.tool;
+            scrollToBottom();
             
-            if (msg.loading && msg.duration) {
-              el.innerHTML = `<span class="micro-spinner" style="display:inline-block;width:1em;text-align:center;">⠋</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">0.0s</span>`;
-              container.appendChild(el);
+            const spinnerSpan = el.querySelector('.micro-spinner');
+            let spinnerFrame = 0;
+            let startTime = Date.now();
+            
+            const interval = setInterval(() => {
+              spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES.length;
+              if (spinnerSpan) spinnerSpan.textContent = SPINNER_FRAMES[spinnerFrame];
               
-              const spinnerSpan = el.querySelector('.micro-spinner');
-              let spinnerFrame = 0;
-              let startTime = Date.now();
-              
-              const interval = setInterval(() => {
-                spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES.length;
-                if (spinnerSpan) spinnerSpan.textContent = SPINNER_FRAMES[spinnerFrame];
-                
-                const elapsed = Date.now() - startTime;
-                const seconds = (elapsed / 1000).toFixed(1);
-                el.innerHTML = `<span class="micro-spinner" style="display:inline-block;width:1em;text-align:center;">${SPINNER_FRAMES[spinnerFrame]}</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">${seconds}s</span>`;
-              }, 100);
-              
-              await new Promise(r => setTimeout(r, msg.duration));
-              clearInterval(interval);
-              
-              const totalSeconds = (msg.duration / 1000).toFixed(1);
-              el.innerHTML = `<span style="color:#27c93f;display:inline-block;width:1em;text-align:center;">✓</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">${totalSeconds}s</span>`;
-            } else {
-              el.innerHTML = `<span style="color:#fbbf24;">⚡ ${toolContent}</span>`;
-              container.appendChild(el);
-            }
+              const elapsed = Date.now() - startTime;
+              const seconds = (elapsed / 1000).toFixed(1);
+              el.innerHTML = `<span class="micro-spinner" style="display:inline-block;width:1em;text-align:center;">${SPINNER_FRAMES[spinnerFrame]}</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">${seconds}s</span>`;
+            }, 100);
+            
+            await new Promise(r => setTimeout(r, msg.duration));
+            clearInterval(interval);
+            
+            const totalSeconds = (msg.duration / 1000).toFixed(1);
+            el.innerHTML = `<span style="color:#27c93f;display:inline-block;width:1em;text-align:center;">✓</span> <span style="color:#fbbf24;">${toolContent}</span> <span style="color:#71717a;margin-left:4px;">${totalSeconds}s</span>`;
+          } else {
+            el.innerHTML = `<span style="color:#fbbf24;">⚡ ${toolContent}</span>`;
+            container.appendChild(el);
+            scrollToBottom();
           }
-          
-          // Scroll to show newest at bottom
-          while (container.children.length > 8) {
-            container.removeChild(container.firstChild);
-          }
-          container.scrollTop = container.scrollHeight;
         }
         
-        await new Promise(r => setTimeout(r, loopDelay));
-        runSequence();
+        // Continue to next message immediately (no loop delay)
+        addNextMessage();
       }
       
-      runSequence();
+      function scrollToBottom() {
+        // Remove old messages if too many
+        while (container.children.length > 20) {
+          container.removeChild(container.firstChild);
+        }
+        container.scrollTop = container.scrollHeight;
+      }
+      
+      // Start the infinite loop
+      addNextMessage();
     }
   </script>
 </body>
