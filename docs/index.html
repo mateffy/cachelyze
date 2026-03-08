@@ -1927,41 +1927,41 @@
       animateMicroChat('micro-after', MICRO_AFTER_MESSAGES, 5000);
     });
     
-    // Micro terminal conversation data - continuous subagent/tool calls (infinite)
+    // Micro terminal conversation data - research agent focused questions (infinite)
     const MICRO_BEFORE_MESSAGES = [
-      { type: 'user', content: 'Fix bug', delay: 200 },
-      { type: 'assistant', content: 'Exploring...', delay: 200 },
-      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
-      { type: 'assistant', content: 'Reading files...', delay: 200 },
-      { type: 'tool', tool: 'subagent.read', loading: true, duration: 2000, delay: 100 },
-      { type: 'assistant', content: 'Found it!', delay: 200 },
-      { type: 'user', content: 'Add feature', delay: 800 },
+      { type: 'user', content: 'How does auth work?', delay: 200 },
+      { type: 'assistant', content: 'Exploring codebase...', delay: 200 },
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 9000, delay: 100 },
+      { type: 'assistant', content: 'Reading auth files...', delay: 200 },
+      { type: 'tool', tool: 'subagent.read', loading: true, duration: 8000, delay: 100 },
+      { type: 'assistant', content: 'JWT with passport', delay: 200 },
+      { type: 'user', content: 'Explain the db schema', delay: 800 },
       { type: 'assistant', content: 'Exploring again...', delay: 200 },
-      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
-      { type: 'assistant', content: 'Done!', delay: 200 },
-      { type: 'user', content: 'Refactor auth', delay: 800 },
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 10000, delay: 100 },
+      { type: 'assistant', content: 'PostgreSQL with 12 tables', delay: 200 },
+      { type: 'user', content: 'What is the api structure?', delay: 800 },
       { type: 'assistant', content: 'Starting exploration...', delay: 200 },
-      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 6000, delay: 100 },
-      { type: 'assistant', content: 'Analyzing...', delay: 200 },
-      { type: 'tool', tool: 'subagent.analyze', loading: true, duration: 3000, delay: 100 },
-      { type: 'assistant', content: 'Complete!', delay: 200 }
+      { type: 'tool', tool: 'subagent.explore', loading: true, duration: 8500, delay: 100 },
+      { type: 'assistant', content: 'Analyzing routes...', delay: 200 },
+      { type: 'tool', tool: 'subagent.analyze', loading: true, duration: 9000, delay: 100 },
+      { type: 'assistant', content: 'REST + GraphQL', delay: 200 }
     ];
 
     const MICRO_AFTER_MESSAGES = [
-      { type: 'user', content: 'Fix bug', delay: 200 },
+      { type: 'user', content: 'How does auth work?', delay: 200 },
       { type: 'assistant', content: 'Using cache...', delay: 200 },
-      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
-      { type: 'assistant', content: 'Found it!', delay: 200 },
-      { type: 'user', content: 'Add feature', delay: 800 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 5000, delay: 100 },
+      { type: 'assistant', content: 'JWT with passport', delay: 200 },
+      { type: 'user', content: 'Explain the db schema', delay: 800 },
       { type: 'assistant', content: 'Cache loaded...', delay: 200 },
-      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
-      { type: 'assistant', content: 'Done!', delay: 200 },
-      { type: 'user', content: 'Refactor auth', delay: 800 },
-      { type: 'assistant', content: 'Using cache...', delay: 200 },
-      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
-      { type: 'assistant', content: 'Quick check...', delay: 200 },
-      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 800, delay: 100 },
-      { type: 'assistant', content: 'Complete!', delay: 200 }
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 2500, delay: 100 },
+      { type: 'assistant', content: 'PostgreSQL 12 tables', delay: 200 },
+      { type: 'user', content: 'What is the api structure?', delay: 800 },
+      { type: 'assistant', content: 'From cache...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 3000, delay: 100 },
+      { type: 'assistant', content: 'Quick lookup...', delay: 200 },
+      { type: 'tool', tool: 'cachelyze.analyze', loading: true, duration: 2000, delay: 100 },
+      { type: 'assistant', content: 'REST + GraphQL', delay: 200 }
     ];
     
     // Full micro terminal chat animation - infinite scrolling
