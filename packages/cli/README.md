@@ -7,7 +7,7 @@ Command-line interface for research — cached codebase analysis for AI coding a
 This package provides the CLI for research. For programmatic SDK access, use [`@research-agent/core`](https://www.npmjs.com/package/@research-agent/core). For the full package with both CLI and SDK, see [`research`](https://www.npmjs.com/package/research).
 
 **Website:** [research](https://research)  
-**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
+**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
 
 ---
 
@@ -116,7 +116,7 @@ Cache files are stored in `~/.cache/research/<project-key>/` — outside the rep
 
 ## Full Documentation
 
-For SDK usage, programmatic API, and advanced examples, see the [main README](https://github.com/mateffy/research#readme).
+For SDK usage, programmatic API, and advanced examples, see the [main README](https://github.com/mateffy/research.actor#readme).
 
 ---
 

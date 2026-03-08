@@ -7,7 +7,7 @@ Core SDK for research — cached codebase analysis for AI coding agents.
 This package contains the core business logic and SDK for programmatic use. For the full package with CLI included, see [`research`](https://www.npmjs.com/package/research).
 
 **Website:** [research](https://research)  
-**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
+**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
 
 ---
 
@@ -197,7 +197,7 @@ try {
 
 ## Full Documentation
 
-For complete documentation including CLI usage, all configuration options, and advanced examples, see the [main README](https://github.com/mateffy/research#readme).
+For complete documentation including CLI usage, all configuration options, and advanced examples, see the [main README](https://github.com/mateffy/research.actor#readme).
 
 ---
 

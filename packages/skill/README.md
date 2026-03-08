@@ -7,7 +7,7 @@ Agent skill for research — teaches AI agents how to use research effectively.
 This package provides a [Agent Skill](https://agentskills.io) that helps AI coding agents understand and use research. It includes best practices, usage patterns, and integration guides.
 
 **Website:** [research](https://research)  
-**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
+**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
 
 ---
 
@@ -76,7 +76,7 @@ The skill includes:
 
 ## Full Documentation
 
-For complete documentation, see the [main README](https://github.com/mateffy/research#readme).
+For complete documentation, see the [main README](https://github.com/mateffy/research.actor#readme).
 
 ---
 

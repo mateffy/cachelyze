@@ -114,10 +114,43 @@ bun add -g @research-agent/cli
 
 ## How it works
 
-1. **First run** on a git commit: Invokes your AI harness to explore and analyze the codebase
-2. **Subsequent runs**: Returns cached analysis instantly
-3. **Working changes**: Automatically discovered via git and merged with cached base
-4. **Switch branches**: Correct cache entry loads automatically based on git hash
+```
+first call on a commit  →  full analysis  →  cached to disk
+subsequent calls        →  instant cache hit
+with working changes    →  cache hit + fast diff pass on top
+```
+
+### Cache key
+
+Each analysis is uniquely identified by a combination of:
+
+- **Git commit hash** — Each commit gets its own cache entry
+- **System prompt hash** — Different analysis focuses create separate cache entries
+- **Project key** — Derived from the repository path
+
+Cache files are stored in `~/.cache/research/<project-key>/` — outside your repository so agents don't accidentally read them. The `XDG_CACHE_HOME` environment variable is respected.
+
+### Two-phase analysis
+
+**Phase 1 — Base Analysis (cached)**
+
+When you run `research` on a clean git state, it:
+1. Checks if a cached analysis exists for the current commit + system prompt
+2. If cache hit: Returns instantly
+3. If cache miss: Invokes your AI harness to explore the codebase, then caches the result
+
+**Phase 2 — Working Changes (never cached)**
+
+If you have uncommitted changes, research runs a lightweight second pass that:
+1. Provides the cached base analysis to the agent
+2. Asks the agent to discover and describe working changes organically
+3. Returns the combined context
+
+This means targeted questions (`--prompt`) always get fresh answers about your current work, while the expensive base analysis is reused.
+
+### Branch switching
+
+Switch branches or commits and the correct cache entry loads automatically based on git hash. Each branch/commit combination maintains its own cached analysis.
 
 ---
 

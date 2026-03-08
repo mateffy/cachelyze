@@ -5,7 +5,7 @@
 Cacheable codebase exploration for AI coding agents.
 
 **Website:** [research](https://research)  
-**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
+**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
 
 Every time a new agent session starts, it re-explores your entire codebase to understand it.
 `research` breaks this bottleneck: it runs a full analysis once per git commit, caches the
