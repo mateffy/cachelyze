@@ -13,7 +13,8 @@
         research.actor
     </h1>
     <p>
-      <strong>Cacheable codebase exploration for AI coding agents.</strong> Stop re-exploring. Start caching. Run a full codebase analysis once per git commit, cache it, and serve it instantly to AI agents. <br /><br />
+      <strong>Every new agent session wastes tokens re-reading your codebase.</strong>
+      With research.actor you run a full research agent once per git commit, cache its analysis, and return it instantly to other agents. Saves time and tokens. Used as a baseline for deeper research.<br /><br />
         <a href="https://research.actor" target="_blank">Website</a> |
         <a href="https://github.com/mateffy/research.actor#readme" target="_blank">Documentation</a>
     </p>
