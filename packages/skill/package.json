@@ -1,6 +1,6 @@
 {
   "name": "@research.actor/skill",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Agent skill for research — teaches AI agents how to use research effectively",
   "homepage": "https://research.actor",
   "repository": {
