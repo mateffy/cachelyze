@@ -1043,6 +1043,104 @@
       </div>
     </section>
 
+    <!-- Before cachelyze -->
+    <section>
+      <h2>Before cachelyze</h2>
+      <p style="font-size: 16px; color: var(--body); margin-bottom: 24px; line-height: 1.6;">
+        Without caching, every agent conversation starts from scratch. Each task triggers a full codebase exploration, burning tokens and time on every request.
+      </p>
+      
+      <div class="terminal-grid">
+        <!-- Terminal 1: Feature Implementation -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #1</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-before-1"></div>
+          </div>
+        </div>
+        
+        <!-- Terminal 2: Bug Fix -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #2</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-before-2"></div>
+          </div>
+        </div>
+        
+        <!-- Terminal 3: Code Review -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #3</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-before-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- After cachelyze -->
+    <section>
+      <h2>After cachelyze</h2>
+      <p style="font-size: 16px; color: var(--body); margin-bottom: 24px; line-height: 1.6;">
+        With caching, agents get instant context and can ask targeted questions. The same tasks complete faster with minimal token usage.
+      </p>
+      
+      <div class="terminal-grid">
+        <!-- Terminal 1: Feature Implementation (cached) -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #1</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-after-1"></div>
+          </div>
+        </div>
+        
+        <!-- Terminal 2: Bug Fix (cached) -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #2</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-after-2"></div>
+          </div>
+        </div>
+        
+        <!-- Terminal 3: Code Review (cached) -->
+        <div class="terminal-window small">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">Agent Thread #3</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-after-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- SDK -->
     <section>
       <h2>Integrate into your application using the TypeScript SDK</h2>
@@ -1341,6 +1439,290 @@
       }
     ];
 
+    // BEFORE cachelyze - Three separate agent threads, each exploring from scratch
+    const BEFORE_MESSAGES_1 = [
+      {
+        type: 'user',
+        content: 'Add user authentication to the API',
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'I need to explore the codebase structure first to understand the API layout...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.explore',
+        loading: true,
+        duration: 8000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Found: Express server at src/server.ts, auth middleware at src/middleware/auth.ts, user routes at src/routes/users.ts. JWT library already installed.`,
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'Now I understand the structure. Let me read the existing auth middleware implementation...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.read_file',
+        loading: true,
+        duration: 2000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Auth middleware uses passport-jwt with Bearer strategy. User model has email, password_hash, and role fields.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'Great! I can now implement user authentication. I will add registration and login endpoints...',
+        delay: 400
+      }
+    ];
+
+    const BEFORE_MESSAGES_2 = [
+      {
+        type: 'user',
+        content: 'Fix the database connection pool issue',
+        delay: 600
+      },
+      {
+        type: 'assistant',
+        content: 'Let me start by exploring the codebase to find database-related files...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.explore',
+        loading: true,
+        duration: 8000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Found: Database config at src/db/config.ts, connection pool at src/db/pool.ts, models in src/models/. Using pg-pool with default max 10 connections.`,
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'Now let me examine the connection pool configuration to identify the issue...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.read_file',
+        loading: true,
+        duration: 2000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Pool configuration shows max: 10, idleTimeoutMillis: 30000. No connection retry logic. Environment variables not being used for pool size.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'Found the issue! The pool size is hardcoded to 10 and there is no retry logic for failed connections. I will fix this...',
+        delay: 400
+      }
+    ];
+
+    const BEFORE_MESSAGES_3 = [
+      {
+        type: 'user',
+        content: 'Review the payment processing code',
+        delay: 900
+      },
+      {
+        type: 'assistant',
+        content: 'I need to explore the codebase to find payment-related modules...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.explore',
+        loading: true,
+        duration: 8000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Found: Payment service at src/services/payment.ts, Stripe integration at src/integrations/stripe.ts, webhook handlers at src/webhooks/payment.ts. Transaction model at src/models/transaction.ts.`,
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'Let me examine the payment service implementation for security issues...',
+        delay: 400
+      },
+      {
+        type: 'tool',
+        tool: 'subagent.read_file',
+        loading: true,
+        duration: 2000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Payment service processes charges but lacks idempotency keys. Webhook signature verification present but no retry logic for failed webhooks.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'I have reviewed the payment processing code. There are some areas that need improvement: add idempotency keys and webhook retry logic...',
+        delay: 400
+      }
+    ];
+
+    // AFTER cachelyze - Same three tasks, but using cached context
+    const AFTER_MESSAGES_1 = [
+      {
+        type: 'user',
+        content: 'Add user authentication to the API',
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'Let me get the cached codebase context first...',
+        delay: 200
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze',
+        loading: true,
+        duration: 500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Cache hit (abc123f): Express server, existing auth middleware using passport-jwt, user routes already structured for extension.`,
+        delay: 100
+      },
+      {
+        type: 'assistant',
+        content: 'Perfect! I can see the auth structure. Let me check the specific middleware implementation...',
+        delay: 300
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze --prompt "how is JWT auth currently implemented?"',
+        loading: true,
+        duration: 1500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Uses passport-jwt with Bearer strategy. User model has email, password_hash, role. Login endpoint at POST /api/auth/login already exists.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'Great! With the cached context, I can see JWT is already set up. I will add the registration endpoint and protect the routes. This is much faster now!',
+        delay: 300
+      }
+    ];
+
+    const AFTER_MESSAGES_2 = [
+      {
+        type: 'user',
+        content: 'Fix the database connection pool issue',
+        delay: 600
+      },
+      {
+        type: 'assistant',
+        content: 'Using cached analysis to find the database configuration...',
+        delay: 200
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze',
+        loading: true,
+        duration: 500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Cache hit (abc123f): Database config at src/db/config.ts using pg-pool with max: 10 connections, no env-based configuration.`,
+        delay: 100
+      },
+      {
+        type: 'assistant',
+        content: 'I can see the pool configuration from cache. Let me ask about the specific pool parameters...',
+        delay: 300
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze --prompt "what are the current pool settings and retry logic?"',
+        loading: true,
+        duration: 1500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Pool: max 10, idleTimeoutMillis 30000. No retry logic implemented. Connection timeout not configured. Hardcoded values in src/db/pool.ts lines 8-15.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'Perfect! I now know the pool is hardcoded with no retry logic. I will add environment-based configuration and connection retry logic. Much faster with cached context!',
+        delay: 300
+      }
+    ];
+
+    const AFTER_MESSAGES_3 = [
+      {
+        type: 'user',
+        content: 'Review the payment processing code',
+        delay: 900
+      },
+      {
+        type: 'assistant',
+        content: 'Getting cached context for payment modules...',
+        delay: 200
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze',
+        loading: true,
+        duration: 500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Cache hit (abc123f): Payment service at src/services/payment.ts, Stripe integration, webhook handlers, transaction model structure.`,
+        delay: 100
+      },
+      {
+        type: 'assistant',
+        content: 'I have the cached structure. Let me ask about the specific security implementation...',
+        delay: 300
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze --prompt "what security measures are in place for payment webhooks?"',
+        loading: true,
+        duration: 1500,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Webhook signature verification implemented using Stripe SDK. No idempotency keys on charges. No automatic retry for failed webhooks. Error handling basic.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'With cached context, I quickly identified the gaps: missing idempotency keys and webhook retry logic. The review is complete and I can provide specific recommendations!',
+        delay: 300
+      }
+    ];
+
     async function animateChat(containerId, messages, loopDelay = 3000) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1435,6 +1817,16 @@
     document.addEventListener('DOMContentLoaded', () => {
       animateChat('chat-slow', SLOW_MESSAGES, 4000);
       animateChat('chat-fast', FAST_MESSAGES, 3000);
+      
+      // Before cachelyze - three separate agent threads
+      animateChat('chat-before-1', BEFORE_MESSAGES_1, 6000);
+      animateChat('chat-before-2', BEFORE_MESSAGES_2, 6000);
+      animateChat('chat-before-3', BEFORE_MESSAGES_3, 6000);
+      
+      // After cachelyze - same tasks with cached context
+      animateChat('chat-after-1', AFTER_MESSAGES_1, 4000);
+      animateChat('chat-after-2', AFTER_MESSAGES_2, 4000);
+      animateChat('chat-after-3', AFTER_MESSAGES_3, 4000);
     });
   </script>
 </body>
