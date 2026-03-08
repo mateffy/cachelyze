@@ -13,7 +13,7 @@
         research.actor
     </h1>
     <p>
-      <strong>Every new agent session wastes tokens re-reading your codebase.</strong>
+      <strong>Every new agent session wastes tokens re-reading your codebase.</strong><br>
       With research.actor you run a full research agent once per git commit, cache its analysis, and return it instantly to other agents. Saves time and tokens. Used as a baseline for deeper research.<br /><br />
         <a href="https://research.actor" target="_blank">Website</a> |
         <a href="https://github.com/mateffy/research.actor#readme" target="_blank">Documentation</a>
