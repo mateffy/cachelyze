@@ -13,6 +13,7 @@ const packages = [
   "packages/cli", 
   "packages/cachelyze",
   "packages/research.actor",
+  "packages/research-agent",
   "packages/skill"
 ];
 

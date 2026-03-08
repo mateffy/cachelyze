@@ -1,6 +1,6 @@
 import { defineCommand } from "citty"
-import { analyze, detectHarnesses, FsStore } from "@cachelyze/core"
-import type { HarnessName } from "@cachelyze/core"
+import { analyze, detectHarnesses, FsStore } from "@research-agent/core"
+import type { HarnessName } from "@research-agent/core"
 
 const VALID_HARNESSES: readonly HarnessName[] = ["opencode", "claude", "codex", "aider", "gemini"]
 
@@ -32,7 +32,7 @@ function parseDuration(value: string): number | null {
 
 export const analyzeCommand = defineCommand({
   meta: {
-    name: "cachelyze",
+    name: "research",
     description:
       "Produce a cached codebase analysis for AI agents. Runs a full analysis on first call, " +
       "returns cached result on subsequent calls for the same git commit, and always analyzes " +

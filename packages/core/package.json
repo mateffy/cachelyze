@@ -1,7 +1,7 @@
 {
-  "name": "@cachelyze/core",
-  "version": "0.4.2",
-  "description": "Core business logic for cachelyze — cached codebase analysis for AI agents",
+  "name": "@research-agent/core",
+  "version": "0.4.3",
+  "description": "Core business logic for research — cached codebase analysis for AI agents",
   "homepage": "https://research.actor",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "research.actor",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Cached codebase analysis for AI coding agents — stop re-exploring, start caching.",
   "homepage": "https://research.actor",
   "repository": {
@@ -18,7 +18,7 @@
     }
   },
   "bin": {
-    "research.actor": "./bin/research.actor.js"
+    "research": "./bin/research.actor.js"
   },
   "keywords": [
     "ai",
@@ -40,8 +40,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@cachelyze/core": "workspace:*",
-    "@cachelyze/cli": "workspace:*"
+    "@research-agent/core": "workspace:*",
+    "@research-agent/cli": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.3",

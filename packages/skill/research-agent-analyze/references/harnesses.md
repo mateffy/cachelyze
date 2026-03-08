@@ -1,6 +1,6 @@
 # Supported Harnesses
 
-`research.actor` invokes a coding agent harness as a subprocess to perform analysis.
+`research` invokes a coding agent harness as a subprocess to perform analysis.
 The following harnesses are supported and auto-detected via `which`:
 
 | Harness name | Binary     | Install                          |
@@ -13,13 +13,13 @@ The following harnesses are supported and auto-detected via `which`:
 
 ## Detection order
 
-When no `--harness` flag is provided, `research.actor` runs `which` for each harness binary
+When no `--harness` flag is provided, `research` runs `which` for each harness binary
 in the order listed above and uses the first one found.
 
 To see which harnesses are detected on the current system:
 
 ```bash
-research.actor --list-harnesses
+research --list-harnesses
 ```
 
 ## Recommendation

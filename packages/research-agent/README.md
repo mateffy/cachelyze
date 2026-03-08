@@ -1,18 +1,18 @@
-# research
+# research-agent
 
 Cached codebase analysis for AI coding agents — stop re-exploring, start caching.
 
-[![npm version](https://img.shields.io/npm/v/research.svg)](https://www.npmjs.com/package/research)
+[![npm version](https://img.shields.io/npm/v/research-agent.svg)](https://www.npmjs.com/package/research-agent)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Why?
 
-Every new agent session wastes tokens re-reading your codebase. With research you run a full research agent once per git commit, cache its analysis, and return it instantly to other agents. Saves time and tokens. Used as a baseline for deeper research.
+Every new agent session wastes tokens re-reading your codebase. With research-agent you run a full research agent once per git commit, cache its analysis, and return it instantly to other agents. Saves time and tokens. Used as a baseline for deeper research.
 
 ## Installation
 
 ```bash
-npm install -g research
+npm install -g research-agent
 ```
 
 ## Quick Start
@@ -49,7 +49,7 @@ research --prompt "explain the auth system"
 ## SDK Usage
 
 ```typescript
-import { analyze, FsStore } from "research"
+import { analyze, FsStore } from "research-agent"
 
 const result = await analyze({
   prompt: "focus on the auth system",

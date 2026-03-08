@@ -1,22 +1,22 @@
-# @cachelyze/core
+# @research-agent/core
 
 > **Alpha — work in progress.** APIs may change without notice.
 
-Core SDK for research.actor — cached codebase analysis for AI coding agents.
+Core SDK for research — cached codebase analysis for AI coding agents.
 
-This package contains the core business logic and SDK for programmatic use. For the full package with CLI included, see [`research.actor`](https://www.npmjs.com/package/research.actor).
+This package contains the core business logic and SDK for programmatic use. For the full package with CLI included, see [`research`](https://www.npmjs.com/package/research).
 
-**Website:** [research.actor](https://research.actor)  
-**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
+**Website:** [research](https://research)  
+**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
 
 ---
 
 ## Installation
 
 ```sh
-npm install @cachelyze/core
+npm install @research-agent/core
 # or
-bun add @cachelyze/core
+bun add @research-agent/core
 ```
 
 ---
@@ -24,7 +24,7 @@ bun add @cachelyze/core
 ## Quick Start
 
 ```ts
-import { analyze, FsStore } from "@cachelyze/core"
+import { analyze, FsStore } from "@research-agent/core"
 
 // Basic analysis with persistent cache
 const result = await analyze({
@@ -43,7 +43,7 @@ console.log(result.gitHash)    // the commit the analysis is keyed to
 ### Basic with Memory Store
 
 ```ts
-import { analyze } from "@cachelyze/core"
+import { analyze } from "@research-agent/core"
 
 const result = await analyze()
 console.log(result.analysis)
@@ -52,7 +52,7 @@ console.log(result.analysis)
 ### Persistent Cache with FsStore
 
 ```ts
-import { analyze, FsStore } from "@cachelyze/core"
+import { analyze, FsStore } from "@research-agent/core"
 
 const store = new FsStore()
 
@@ -85,7 +85,7 @@ await analyze({
 ### Custom Cache Store
 
 ```ts
-import type { CacheStore, CacheKey, AnalysisCache } from "@cachelyze/core"
+import type { CacheStore, CacheKey, AnalysisCache } from "@research-agent/core"
 
 class PostgresStore implements CacheStore {
   async get(key: CacheKey): Promise<AnalysisCache | null> {
@@ -107,7 +107,7 @@ const result = await analyze({ store: new PostgresStore() })
 ### Custom Runner (In-Process Agent)
 
 ```ts
-import type { HarnessRunner, RunRequest, RunResult } from "@cachelyze/core"
+import type { HarnessRunner, RunRequest, RunResult } from "@research-agent/core"
 
 class MyAgentRunner implements HarnessRunner {
   readonly name = "my-agent"
@@ -159,7 +159,7 @@ interface AnalyzeResult {
 
 ### `class FsStore`
 
-Filesystem-backed cache store. Stores entries as JSON under `~/.cache/research.actor/`.
+Filesystem-backed cache store. Stores entries as JSON under `~/.cache/research/`.
 
 ```ts
 new FsStore(baseDir?: string)
@@ -180,7 +180,7 @@ store.clear() // remove all entries
 All errors extend `CachelyzError`:
 
 ```ts
-import { CachelyzError, HarnessNotFoundError, GitError } from "@cachelyze/core"
+import { CachelyzError, HarnessNotFoundError, GitError } from "@research-agent/core"
 
 try {
   await analyze({ store: new FsStore() })
@@ -197,7 +197,7 @@ try {
 
 ## Full Documentation
 
-For complete documentation including CLI usage, all configuration options, and advanced examples, see the [main README](https://github.com/mateffy/research.actor#readme).
+For complete documentation including CLI usage, all configuration options, and advanced examples, see the [main README](https://github.com/mateffy/research#readme).
 
 ---
 
@@ -205,10 +205,10 @@ For complete documentation including CLI usage, all configuration options, and a
 
 | Package | Description |
 |---------|-------------|
-| `research.actor` | Full package — SDK + CLI |
-| `@cachelyze/core` | **SDK only** (this package) |
-| `@cachelyze/cli` | CLI only |
-| `@cachelyze/skill` | Agent skill for teaching agents to use research.actor |
+| `research` | Full package — SDK + CLI |
+| `@research-agent/core` | **SDK only** (this package) |
+| `@research-agent/cli` | CLI only |
+| `@research-agent/skill` | Agent skill for teaching agents to use research |
 
 ---
 

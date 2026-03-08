@@ -1,6 +1,6 @@
 import { defineCommand } from "citty"
-import { getRepoRoot, deriveProjectKey, FsStore } from "@cachelyze/core"
-import { GitError } from "@cachelyze/core"
+import { getRepoRoot, deriveProjectKey, FsStore } from "@research-agent/core"
+import { GitError } from "@research-agent/core"
 
 export const clearCommand = defineCommand({
   meta: {
@@ -12,7 +12,7 @@ export const clearCommand = defineCommand({
   args: {
     "cache-dir": {
       type: "string",
-      description: "Custom cache directory (defaults to ~/.cache/cachelyze).",
+      description: "Custom cache directory (defaults to ~/.cache/research).",
     },
   },
 

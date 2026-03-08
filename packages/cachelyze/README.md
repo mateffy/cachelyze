@@ -1,14 +1,14 @@
-# research.actor
+# research
 
 > **Alpha — work in progress.** APIs and CLI interface may change without notice.
 
 Cached codebase analysis for AI coding agents.
 
-**Website:** [research.actor](https://research.actor)  
-**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
+**Website:** [research](https://research)  
+**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
 
 Every time a new agent session starts, it re-explores your entire codebase to understand it.
-`research.actor` breaks this bottleneck: it runs a full analysis once per git commit, caches the
+`research` breaks this bottleneck: it runs a full analysis once per git commit, caches the
 result, and on subsequent calls returns it instantly — then runs a lightweight secondary pass
 that lets the agent discover any uncommitted working changes organically.
 
@@ -38,16 +38,16 @@ with working changes    →  cache hit + fast diff pass on top
 ## Installation
 
 ```sh
-npm install research.actor
+npm install research
 # or
-bun add research.actor
+bun add research
 ```
 
 For global CLI use:
 
 ```sh
-npm install -g research.actor
-bun add -g research.actor
+npm install -g research
+bun add -g research
 ```
 
 ---
@@ -56,41 +56,41 @@ bun add -g research.actor
 
 ```sh
 # Basic — auto-detects installed harness, in-memory cache (single run)
-research.actor
+research
 
 # Persist cache to disk (recommended for repeated use)
 # The CLI always uses FsStore automatically — no flag needed
 
 # Targeted question about the current working diff (never cached)
-research.actor --prompt "what auth changes are in progress?"
+research --prompt "what auth changes are in progress?"
 
 # Customize the analysis focus — stored as a separate cache entry
-research.actor --system-prompt "focus on the API layer and data models"
+research --system-prompt "focus on the API layer and data models"
 
 # Specify harness and model
-research.actor --harness claude --model claude-opus-4-5
+research --harness claude --model claude-opus-4-5
 
 # Force a fresh analysis even if a cache entry exists
-research.actor --force
+research --force
 
 # Only use cached entry if younger than a given duration
-research.actor --max-age 2h
-research.actor --max-age 30m
-research.actor --max-age 7d
+research --max-age 2h
+research --max-age 30m
+research --max-age 7d
 
 # JSON output — useful when consuming from another script or agent tool
-research.actor --json
+research --json
 
 # List harnesses detected on this system
-research.actor --list-harnesses
+research --list-harnesses
 
 # Remove all cached analyses for the current repository
-research.actor clear
+research clear
 ```
 
-`research.actor analyze [flags]` is an explicit alias for the default bare invocation.
+`research analyze [flags]` is an explicit alias for the default bare invocation.
 
-### `research.actor` / `research.actor analyze` flags
+### `research` / `research analyze` flags
 
 | Flag | Short | Description |
 |---|---|---|
@@ -103,11 +103,11 @@ research.actor clear
 | `--json` | `-j` | Emit a JSON object instead of plain text. |
 | `--list-harnesses` | `-l` | Print detected harnesses and exit. |
 
-### `research.actor clear` flags
+### `research clear` flags
 
 | Flag | Description |
 |---|---|
-| `--cache-dir <path>` | Custom cache directory. Defaults to `~/.cache/research.actor`. |
+| `--cache-dir <path>` | Custom cache directory. Defaults to `~/.cache/research`. |
 
 ### Supported harnesses
 
@@ -121,14 +121,14 @@ research.actor clear
 
 ### Cache location
 
-The CLI stores cache files in `~/.cache/research.actor/<project-key>/` — outside the repository,
+The CLI stores cache files in `~/.cache/research/<project-key>/` — outside the repository,
 so agents do not accidentally read them. The `XDG_CACHE_HOME` environment variable is respected.
 
 ---
 
 ## SDK usage
 
-`research.actor` exports the full SDK. Everything is available from the top-level import.
+`research` exports the full SDK. Everything is available from the top-level import.
 
 ### Basic
 
@@ -136,7 +136,7 @@ The simplest case. Uses a fresh `MemoryStore` (no disk I/O) and auto-detects the
 available harness.
 
 ```ts
-import { analyze } from "research.actor"
+import { analyze } from "research"
 
 const result = await analyze()
 
@@ -160,17 +160,17 @@ The `MemoryStore` default does not survive across process restarts. For persiste
 — the same behaviour as the CLI — pass an `FsStore`:
 
 ```ts
-import { analyze, FsStore } from "research.actor"
+import { analyze, FsStore } from "research"
 
 const result = await analyze({
   store: new FsStore(),
 })
 ```
 
-`FsStore` defaults to `~/.cache/research.actor/`. Pass a custom directory if needed:
+`FsStore` defaults to `~/.cache/research/`. Pass a custom directory if needed:
 
 ```ts
-const store = new FsStore("/var/cache/myapp/research.actor")
+const store = new FsStore("/var/cache/myapp/research")
 const result = await analyze({ store })
 ```
 
@@ -193,8 +193,8 @@ await analyze({ store })
 Implement `CacheStore` to persist analyses anywhere — a database, Redis, S3, etc.
 
 ```ts
-import { analyze } from "research.actor"
-import type { CacheStore, CacheKey, AnalysisCache } from "research.actor"
+import { analyze } from "research"
+import type { CacheStore, CacheKey, AnalysisCache } from "research"
 
 class PostgresStore implements CacheStore {
   async get(key: CacheKey): Promise<AnalysisCache | null> {
@@ -225,12 +225,12 @@ const result = await analyze({ store: new PostgresStore() })
 
 ### Custom runner (in-process agent)
 
-By default `research.actor` spawns a subprocess harness. Implement `HarnessRunner` to use any
+By default `research` spawns a subprocess harness. Implement `HarnessRunner` to use any
 agent instead — an in-process library, a remote API call, a local model, or a test mock.
 
 ```ts
-import { analyze } from "research.actor"
-import type { HarnessRunner, RunRequest, RunResult } from "research.actor"
+import { analyze } from "research"
+import type { HarnessRunner, RunRequest, RunResult } from "research"
 
 // Example: in-process agent (e.g. pi, or your own)
 class MyAgentRunner implements HarnessRunner {
@@ -271,8 +271,8 @@ const result = await analyze({ runner: new MockRunner() })
 You can also wrap the built-in `SubprocessRunner` to intercept or modify behaviour:
 
 ```ts
-import { SubprocessRunner, resolveHarness } from "research.actor"
-import type { HarnessRunner, RunRequest, RunResult } from "research.actor"
+import { SubprocessRunner, resolveHarness } from "research"
+import type { HarnessRunner, RunRequest, RunResult } from "research"
 
 class LoggingRunner implements HarnessRunner {
   private readonly inner: SubprocessRunner
@@ -284,9 +284,9 @@ class LoggingRunner implements HarnessRunner {
   get name() { return this.inner.name }
 
   async run(req: RunRequest): Promise<RunResult> {
-    console.log(`[research.actor] running ${this.name} in ${req.cwd}`)
+    console.log(`[research] running ${this.name} in ${req.cwd}`)
     const result = await this.inner.run(req)
-    console.log(`[research.actor] got ${result.output.length} chars`)
+    console.log(`[research] got ${result.output.length} chars`)
     return result
   }
 }
@@ -301,7 +301,7 @@ await analyze({ runner, store: new FsStore() })
 Pass `maxAge` in milliseconds to treat entries older than that as stale:
 
 ```ts
-import { analyze, FsStore } from "research.actor"
+import { analyze, FsStore } from "research"
 
 // Re-run if cached analysis is older than 24 hours
 await analyze({
@@ -321,10 +321,10 @@ When `maxAge` is omitted, entries never expire (only `force: true` bypasses them
 
 ### Error handling
 
-All research.actor errors extend `CachelyzError`:
+All research errors extend `CachelyzError`:
 
 ```ts
-import { analyze, FsStore, CachelyzError, HarnessNotFoundError, GitError } from "research.actor"
+import { analyze, FsStore, CachelyzError, HarnessNotFoundError, GitError } from "research"
 
 try {
   await analyze({ store: new FsStore() })
@@ -334,9 +334,9 @@ try {
     console.error("Install a harness: opencode, claude, codex, aider, or gemini")
   } else if (err instanceof GitError) {
     // Not a git repo, or git is not installed
-    console.error("research.actor must be run inside a git repository")
+    console.error("research must be run inside a git repository")
   } else if (err instanceof CachelyzError) {
-    // Any other research.actor error
+    // Any other research error
     console.error(err.message, err.cause)
   } else {
     throw err
@@ -376,7 +376,7 @@ interface AnalyzeResult {
 
 ### `class FsStore`
 
-Filesystem-backed `CacheStore`. Stores entries as JSON under `~/.cache/research.actor/`.
+Filesystem-backed `CacheStore`. Stores entries as JSON under `~/.cache/research/`.
 
 ```ts
 new FsStore(baseDir?: string)
@@ -398,7 +398,7 @@ store.clear() // remove all entries
 Default `HarnessRunner`. Spawns a harness binary as a child process and streams stdout.
 
 ```ts
-import { SubprocessRunner, resolveHarness } from "research.actor"
+import { SubprocessRunner, resolveHarness } from "research"
 
 const harness = await resolveHarness("claude")
 const runner = new SubprocessRunner(harness)
@@ -409,7 +409,7 @@ const runner = new SubprocessRunner(harness)
 Remove all cached entries for a project. Returns the number of files deleted.
 
 ```ts
-import { FsStore, deriveProjectKey, getRepoRoot } from "research.actor"
+import { FsStore, deriveProjectKey, getRepoRoot } from "research"
 
 const repoRoot = await getRepoRoot(process.cwd())
 const projectKey = deriveProjectKey(repoRoot)
@@ -466,15 +466,15 @@ interface CacheKey {
 
 ## Package structure
 
-`research.actor` is the full package. Two sub-packages are published separately for consumers
+`research` is the full package. Two sub-packages are published separately for consumers
 who only want part of the surface:
 
 | Package | Description |
 |---|---|
-| `research.actor` | Full package — SDK + CLI. Start here. |
-| `@cachelyze/core` | SDK only. No CLI dependency. |
-| `@cachelyze/cli` | CLI only. Depends on `@cachelyze/core`. |
-| `@cachelyze/skill` | [Agent skill](https://agentskills.io) for teaching agents to use research.actor. |
+| `research` | Full package — SDK + CLI. Start here. |
+| `@research-agent/core` | SDK only. No CLI dependency. |
+| `@research-agent/cli` | CLI only. Depends on `@research-agent/core`. |
+| `@research-agent/skill` | [Agent skill](https://agentskills.io) for teaching agents to use research. |
 
 ---
 

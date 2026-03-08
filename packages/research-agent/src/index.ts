@@ -1,5 +1,5 @@
 /**
- * research
+ * research-agent
  *
  * Cached codebase analysis for AI coding agents.
  *
@@ -7,7 +7,7 @@
  *
  * @example
  * ```ts
- * import { analyze } from "research"
+ * import { analyze } from "research-agent"
  *
  * const result = await analyze({ prompt: "focus on the auth system" })
  * console.log(result.analysis)
@@ -55,7 +55,7 @@ export type {
 /**
  * Package metadata.
  */
-export const RESEARCH_VERSION = "0.4.2" as const
+export const RESEARCH_AGENT_VERSION = "0.4.2" as const
 
 /**
  * Alpha release notice. This package is under active development.

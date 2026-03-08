@@ -6,7 +6,7 @@ import { clearCommand } from "./commands/clear.js"
 /**
  * Root command.
  *
- * Bare `cachelyze [flags]` runs the analysis directly (same as `cachelyze analyze`).
+ * Bare `research [flags]` runs the analysis directly (same as `research analyze`).
  * The `clear` subcommand removes all cached analyses for the current repo.
  *
  * The root command has no run handler - it either shows help (no args) or
@@ -15,10 +15,10 @@ import { clearCommand } from "./commands/clear.js"
  */
 const main = defineCommand({
   meta: {
-    name: "cachelyze",
+    name: "research",
     description:
       "Cached codebase analysis for AI agents. " +
-      "Run `cachelyze analyze` to analyze the current repo.",
+      "Run `research analyze` to analyze the current repo.",
   },
   subCommands: {
     analyze: analyzeCommand,

@@ -1,13 +1,13 @@
-# @cachelyze/cli
+# @research-agent/cli
 
 > **Alpha — work in progress.** CLI interface may change without notice.
 
-Command-line interface for research.actor — cached codebase analysis for AI coding agents.
+Command-line interface for research — cached codebase analysis for AI coding agents.
 
-This package provides the CLI for research.actor. For programmatic SDK access, use [`@cachelyze/core`](https://www.npmjs.com/package/@cachelyze/core). For the full package with both CLI and SDK, see [`research.actor`](https://www.npmjs.com/package/research.actor).
+This package provides the CLI for research. For programmatic SDK access, use [`@research-agent/core`](https://www.npmjs.com/package/@research-agent/core). For the full package with both CLI and SDK, see [`research`](https://www.npmjs.com/package/research).
 
-**Website:** [research.actor](https://research.actor)  
-**Repository:** [github.com/mateffy/research.actor](https://github.com/mateffy/research.actor)
+**Website:** [research](https://research)  
+**Repository:** [github.com/mateffy/research](https://github.com/mateffy/research)
 
 ---
 
@@ -16,17 +16,17 @@ This package provides the CLI for research.actor. For programmatic SDK access, u
 ### Global (recommended)
 
 ```sh
-npm install -g @cachelyze/cli
+npm install -g @research-agent/cli
 # or
-bun add -g @cachelyze/cli
+bun add -g @research-agent/cli
 ```
 
 ### Local
 
 ```sh
-npm install @cachelyze/cli
+npm install @research-agent/cli
 # or
-bun add @cachelyze/cli
+bun add @research-agent/cli
 ```
 
 ---
@@ -35,13 +35,13 @@ bun add @cachelyze/cli
 
 ```sh
 # Basic — auto-detects installed harness, uses persistent cache
-research.actor
+research
 
 # Targeted question about current working diff (never cached)
-research.actor --prompt "what auth changes are in progress?"
+research --prompt "what auth changes are in progress?"
 
 # Customize the analysis focus — stored as separate cache entry
-research.actor --system-prompt "focus on the API layer and data models"
+research --system-prompt "focus on the API layer and data models"
 ```
 
 ---
@@ -52,11 +52,11 @@ research.actor --system-prompt "focus on the API layer and data models"
 
 ```sh
 # Analyze (default)
-research.actor
-research.actor analyze
+research
+research analyze
 
 # Clear all cached analyses for current repository
-research.actor clear
+research clear
 ```
 
 ### Flags
@@ -76,22 +76,22 @@ research.actor clear
 
 ```sh
 # Specify harness and model
-research.actor --harness claude --model claude-opus-4-5
+research --harness claude --model claude-opus-4-5
 
 # Force fresh analysis
-research.actor --force
+research --force
 
 # Only use cache if younger than 2 hours
-research.actor --max-age 2h
+research --max-age 2h
 
 # JSON output for scripting
-research.actor --json
+research --json
 
 # List available harnesses
-research.actor --list-harnesses
+research --list-harnesses
 
 # Clear cache for this project
-research.actor clear
+research clear
 ```
 
 ---
@@ -110,13 +110,13 @@ research.actor clear
 
 ## Cache Location
 
-Cache files are stored in `~/.cache/research.actor/<project-key>/` — outside the repository so agents don't accidentally read them. Respects `XDG_CACHE_HOME`.
+Cache files are stored in `~/.cache/research/<project-key>/` — outside the repository so agents don't accidentally read them. Respects `XDG_CACHE_HOME`.
 
 ---
 
 ## Full Documentation
 
-For SDK usage, programmatic API, and advanced examples, see the [main README](https://github.com/mateffy/research.actor#readme).
+For SDK usage, programmatic API, and advanced examples, see the [main README](https://github.com/mateffy/research#readme).
 
 ---
 
@@ -124,10 +124,10 @@ For SDK usage, programmatic API, and advanced examples, see the [main README](ht
 
 | Package | Description |
 |---------|-------------|
-| `research.actor` | Full package — SDK + CLI |
-| `@cachelyze/core` | SDK only |
-| `@cachelyze/cli` | **CLI only** (this package) |
-| `@cachelyze/skill` | Agent skill for teaching agents to use research.actor |
+| `research` | Full package — SDK + CLI |
+| `@research-agent/core` | SDK only |
+| `@research-agent/cli` | **CLI only** (this package) |
+| `@research-agent/skill` | Agent skill for teaching agents to use research |
 
 ---
 

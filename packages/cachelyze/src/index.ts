@@ -1,5 +1,5 @@
 /**
- * cachelyze
+ * research
  *
  * Cached codebase analysis for AI coding agents.
  *
@@ -7,7 +7,7 @@
  *
  * @example
  * ```ts
- * import { analyze } from "cachelyze"
+ * import { analyze } from "research"
  *
  * const result = await analyze({ prompt: "focus on the auth system" })
  * console.log(result.analysis)
@@ -35,7 +35,7 @@ export {
   CachelyzError,
   HarnessNotFoundError,
   GitError,
-} from "@cachelyze/core"
+} from "@research-agent/core"
 
 export type {
   HarnessName,
@@ -50,15 +50,15 @@ export type {
   AnalyzeOptions,
   AnalyzeResult,
   GitInfo,
-} from "@cachelyze/core"
+} from "@research-agent/core"
 
 /**
  * Package metadata.
  */
-export const CACHELYZE_VERSION = "0.1.0" as const
+export const RESEARCH_VERSION = "0.4.2" as const
 
 /**
  * Alpha release notice. This package is under active development.
- * Subscribe to https://github.com/your-org/cachelyze for updates.
+ * Subscribe to https://github.com/mateffy/research.actor for updates.
  */
 export const RELEASE_STATUS = "alpha" as const

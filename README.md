@@ -463,15 +463,15 @@ interface CacheKey {
 
 ## Package structure
 
-`cachelyze` is the full package. Two sub-packages are published separately for consumers
+`research` is the full package. Two sub-packages are published separately for consumers
 who only want part of the surface:
 
 | Package | Description |
 |---|---|
-| `cachelyze` | Full package — SDK + CLI. Start here. |
-| `@cachelyze/core` | SDK only. No CLI dependency. |
-| `@cachelyze/cli` | CLI only. Depends on `@cachelyze/core`. |
-| `@cachelyze/skill` | [Agent skill](https://agentskills.io) for teaching agents to use cachelyze. |
+| `research` | Full package — SDK + CLI. Start here. |
+| `@research-agent/core` | SDK only. No CLI dependency. |
+| `@research-agent/cli` | CLI only. Depends on `@research-agent/core`. |
+| `@research-agent/skill` | [Agent skill](https://agentskills.io) for teaching agents to use research. |
 
 ---
 

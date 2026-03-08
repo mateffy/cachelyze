@@ -1,7 +1,7 @@
 {
-  "name": "@cachelyze/skill",
-  "version": "0.4.2",
-  "description": "Agent skill for cachelyze — teaches AI agents how to use cachelyze effectively",
+  "name": "@research-agent/skill",
+  "version": "0.4.3",
+  "description": "Agent skill for research — teaches AI agents how to use research effectively",
   "homepage": "https://research.actor",
   "repository": {
     "type": "git",
@@ -17,19 +17,19 @@
       "types": "./dist/index.d.ts"
     },
     "./skill": {
-      "import": "./cachelyze-analyze/SKILL.md"
+      "import": "./research-agent-analyze/SKILL.md"
     }
   },
   "files": [
     "dist",
-    "cachelyze-analyze",
+    "research-agent-analyze",
     "README.md"
   ],
   "keywords": [
     "ai",
     "agent-skill",
     "agentskills",
-    "cachelyze",
+    "research",
     "skill"
   ],
   "license": "MIT",
