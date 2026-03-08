@@ -9,9 +9,14 @@
     "build": "bun run --filter '*' build",
     "typecheck": "bun run --filter '*' typecheck",
     "test": "bun run --filter '*' test",
-    "clean": "bun run --filter '*' clean"
+    "clean": "bun run --filter '*' clean",
+    "version:patch": "bun scripts/version.ts patch",
+    "version:minor": "bun scripts/version.ts minor",
+    "version:major": "bun scripts/version.ts major",
+    "publish": "bun scripts/publish.ts"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "typescript": "^5.7.3"
   }
 }
