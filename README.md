@@ -1,11 +1,11 @@
-# cachelyze
+# research.actor
 
 > **Alpha — work in progress.** APIs and CLI interface may change without notice.
 
 Cached codebase analysis for AI coding agents.
 
 Every time a new agent session starts, it re-explores your entire codebase to understand it.
-`cachelyze` breaks this bottleneck: it runs a full analysis once per git commit, caches the
+`research.actor` breaks this bottleneck: it runs a full analysis once per git commit, caches the
 result, and on subsequent calls returns it instantly — then runs a lightweight secondary pass
 that lets the agent discover any uncommitted working changes organically.
 
