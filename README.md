@@ -48,7 +48,7 @@ $ research
 </div>
 
 ```bash
-research --prompt "explain the auth flow"
+research --prompt "explain the auth flow" --harness opencode
 ```
 
 ---
