@@ -1,6 +1,3 @@
-<picture>
-  <img src="./docs/icon.webp" alt="">
-</picture>
 
 <picture height="0">
   <source media="(min-width: 769px)" srcset="./docs/pixel.png" width="0" height="0">
