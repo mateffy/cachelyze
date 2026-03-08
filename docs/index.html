@@ -3,51 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cachelyze — Cached codebase analysis for AI agents</title>
+  <title>cachelyze — cached codebase analysis for AI agents</title>
   <meta name="description" content="Stop re-exploring. Start caching. Run a full codebase analysis once per git commit, cache it, and serve it instantly to AI agents." />
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="cachelyze — Cached codebase analysis for AI agents" />
-  <meta property="og:description" content="Stop re-exploring. Start caching. Run a full codebase analysis once per git commit." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://cachelyze.com" />
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="cachelyze — Cached codebase analysis for AI agents" />
-  <meta name="twitter:description" content="Stop re-exploring. Start caching." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech&family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
-      --bg: #f0f9ff;
-      --card: #e0f2fe;
-      --card-inner: #bae6fd;
-      --heading: #0c4a6e;
-      --body: #075985;
-      --muted: #0284c7;
-      --caption: #38bdf8;
-      --accent: #7dd3fc;
-      --icon: #7dd3fc;
-      --divider: rgba(2, 132, 199, 0.15);
-      --term-bg: #e0f2fe;
-      --term-text: #0c4a6e;
-      --term-prompt: #38bdf8;
-      --json-key: #0284c7;
+      --bg: #0a0a0a;
+      --card: #141414;
+      --card-inner: #1a1a1a;
+      --heading: #fbbf24;
+      --body: #a1a1aa;
+      --muted: #71717a;
+      --caption: #52525b;
+      --accent: #fbbf24;
+      --icon: #fbbf24;
+      --divider: rgba(251, 191, 36, 0.15);
     }
     
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Share Tech', sans-serif;
       background: var(--bg);
       color: var(--body);
       line-height: 1.6;
       min-height: 100vh;
       position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(251, 191, 36, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251, 191, 36, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
     }
     
     /* Navbar - absolute positioned, right-aligned, vertical */
@@ -88,6 +87,8 @@
       max-width: 950px;
       margin: 0 auto;
       padding: 0 40px 80px;
+      position: relative;
+      z-index: 1;
     }
     
     /* Hero Section */
@@ -103,6 +104,7 @@
       .hero-section {
         flex-direction: column;
         gap: 40px;
+        text-align: center;
       }
     }
     
@@ -110,17 +112,15 @@
       width: 200px;
       height: 200px;
       flex-shrink: 0;
+      filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.3));
     }
     
     @media (max-width: 768px) {
       .hero-image { width: 150px; height: 150px; }
     }
     
-    @media (max-width: 480px) {
-      .hero-image { width: 120px; height: 120px; }
-    }
-    
     .hero-phonetic {
+      font-family: 'Share Tech Mono', monospace;
       font-size: 14px;
       color: var(--caption);
       font-style: italic;
@@ -128,8 +128,9 @@
     }
     
     .hero-title {
+      font-family: 'Space Mono', monospace;
       font-size: 62px;
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1;
       color: var(--heading);
       margin: 0 0 20px 0;
@@ -165,14 +166,14 @@
       background: var(--card);
       border-radius: 16px;
       padding: 24px;
+      border: 1px solid rgba(251, 191, 36, 0.1);
     }
     
     /* Terminal Demo */
     .terminal-demo {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 17px;
-      font-weight: 500;
-      color: var(--term-text);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 15px;
+      color: var(--text);
       line-height: 1.8;
       min-height: 174px;
     }
@@ -184,7 +185,7 @@
     }
     
     .terminal-prompt {
-      color: var(--term-prompt);
+      color: var(--accent);
       user-select: none;
     }
     
@@ -243,6 +244,7 @@
     }
     
     .command-label {
+      font-family: 'Share Tech Mono', monospace;
       font-size: 12px;
       color: var(--caption);
       margin-bottom: 6px;
@@ -256,7 +258,7 @@
     }
     
     .command-text {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: 'Share Tech Mono', monospace;
       font-size: 15px;
       color: var(--body);
       display: flex;
@@ -321,6 +323,7 @@
       min-height: 120px;
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(251, 191, 36, 0.1);
     }
     
     .feature-card-icon {
@@ -336,7 +339,7 @@
     
     .feature-card-title {
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--heading);
       margin-bottom: 6px;
       position: relative;
@@ -351,65 +354,9 @@
       z-index: 1;
     }
     
-    /* Pipeline */
-    .pipeline-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    
-    @media (max-width: 768px) {
-      .pipeline-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-    }
-    
-    .pipeline-step {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .pipeline-step-box {
-      background: var(--card-inner);
-      border-radius: 10px;
-      padding: 10px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-      min-height: 58px;
-      justify-content: center;
-    }
-    
-    .pipeline-step-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--heading);
-    }
-    
-    .pipeline-step-sub {
-      font-size: 11px;
-      color: var(--caption);
-    }
-    
-    .pipeline-arrow {
-      color: var(--icon);
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    
-    @media (max-width: 768px) {
-      .pipeline-arrow {
-        transform: rotate(90deg);
-      }
-    }
-    
     /* Code block in cards */
     .code-block {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: 'Share Tech Mono', monospace;
       font-size: 13px;
       color: var(--body);
       background: var(--card-inner);
@@ -421,10 +368,10 @@
     }
     
     .code-label {
+      font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
       color: var(--caption);
       margin-bottom: 6px;
-      font-family: 'Inter', sans-serif;
     }
     
     /* Link styles */
@@ -538,6 +485,328 @@
     }
     
     .footer-links a:hover { color: var(--heading); }
+
+    /* Terminal Window for How it Works */
+    .terminal-window {
+      background: #0a0a0a;
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: 'Share Tech Mono', monospace;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      user-select: none;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .terminal-title {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 52px;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      height: 320px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      user-select: none;
+      font-size: 14px;
+    }
+
+    .tui-chat {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 1.7;
+      font-family: 'Share Tech', sans-serif;
+    }
+
+    .chat-message {
+      display: flex;
+      gap: 10px;
+      opacity: 0;
+    }
+
+    .chat-message::before {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .chat-message.user::before {
+      content: '>';
+    }
+
+    .chat-message.assistant::before {
+      content: '→';
+    }
+
+    .chat-content {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .chat-content pre {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      margin: 8px 0;
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .tool-call {
+      color: var(--accent);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      width: 100%;
+    }
+
+    .tool-call-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tool-call-main {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .tool-call-prompt {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 20px;
+      opacity: 0.5;
+    }
+
+    .tool-timer {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-left: auto;
+      align-self: flex-start;
+      flex-shrink: 0;
+    }
+
+    .chat-message {
+      display: flex;
+      gap: 10px;
+      opacity: 0;
+    }
+
+    .chat-message.user {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    .chat-message.user::before {
+      content: '<';
+    }
+
+    .chat-message.show {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .chat-message::before {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .chat-message.assistant::before {
+      content: '→';
+    }
+
+    .chat-content {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .chat-content pre {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      margin: 4px 0;
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .tool-call {
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tool-spinner-inline {
+      display: inline-block;
+      width: 1em;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .tool-call.loaded .tool-spinner-inline {
+      content: '✓';
+      color: #27c93f;
+    }
+
+    .tool-call:not(.loading):not(.loaded)::before {
+      content: '⚡';
+      color: var(--accent);
+    }
+
+    .tool-result {
+      color: rgba(255, 255, 255, 0.6);
+      margin-left: 16px;
+    }
+
+    .tool-result.instant {
+      border-left-color: #27c93f;
+      background: rgba(39, 201, 63, 0.1);
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #fbbf24;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .how-it-works-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    .how-it-works-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .how-it-works-text h3 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 16px;
+    }
+
+    .how-it-works-text p {
+      font-size: 16px;
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    .how-it-works-text .highlight {
+      font-weight: 500;
+    }
+
+    .speed-badge {
+      display: inline-block;
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 12px;
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .terminal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 900px) {
+      .terminal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .terminal-window.small {
+      font-size: 12px;
+    }
+
+    .terminal-window.small .terminal-body {
+      height: 260px;
+      padding: 12px;
+    }
+
+    .terminal-window.small .terminal-header {
+      padding: 8px 12px;
+    }
+
+    .terminal-window.small .terminal-title {
+      font-size: 11px;
+    }
+
+    .terminal-window.small .tui-chat {
+      font-size: 11px;
+    }
+
+    .token-badge {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 12px;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .token-badge.saved {
+      background: rgba(39, 201, 63, 0.15);
+      color: #27c93f;
+      border-color: rgba(39, 201, 63, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -552,29 +821,11 @@
     <!-- Hero -->
     <section class="hero-section">
       <div class="hero-image">
-        <!-- Animated Logo SVG -->
-        <svg viewBox="0 0 200 200" width="200" height="200" class="hero-image">
-          <defs>
-            <linearGradient id="cacheGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#0284c7;stop-opacity:1" />
-            </linearGradient>
-          </defs>
-          <!-- Box/Package shape -->
-          <rect x="40" y="60" width="120" height="100" rx="12" fill="url(#cacheGrad)" opacity="0.15"/>
-          <rect x="50" y="70" width="100" height="80" rx="8" fill="none" stroke="#0284c7" stroke-width="3"/>
-          <path d="M50 90 L100 110 L150 90" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M100 110 L100 150" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/>
-          <circle cx="100" cy="50" r="25" fill="none" stroke="#38bdf8" stroke-width="3" opacity="0.6"/>
-          <path d="M85 50 L95 60 L115 40" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Cache indicator -->
-          <rect x="130" y="130" width="40" height="30" rx="4" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/>
-          <text x="150" y="150" font-family="Inter, sans-serif" font-size="12" fill="#0284c7" text-anchor="middle" font-weight="600">1s</text>
-        </svg>
+        <img src="cachelyze.webp" alt="cachelyze" width="200" height="200" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.2));">
       </div>
       <div>
-        <div class="hero-phonetic">/ˈkaʃlʌɪz/</div>
-        <h1 class="hero-title">cachelyze</h1>
+        <div class="hero-phonetic" style="font-family: 'Share Tech Mono', monospace;">/agent</div>
+        <h1 class="hero-title"><span id="hero-spinner" style="display: inline-block; margin-right: 16px;">⠋</span>cachelyze</h1>
         <p class="hero-description">
           <strong>Stop re-exploring. Start caching.</strong><br/>
           Every agent session wastes tokens re-reading your codebase.<br/>
@@ -739,39 +990,54 @@
     <!-- How it works -->
     <section>
       <h2>How it works</h2>
-      <div class="card">
-        <div class="pipeline-grid">
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <div class="pipeline-step-title">First call</div>
-              <div class="pipeline-step-sub">git rev-parse HEAD</div>
-            </div>
-            <div class="pipeline-arrow">→</div>
+      
+      <!-- Step 1: First Run (Slow) -->
+      <div class="how-it-works-grid">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">cachelyze — First Run</div>
           </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <div class="pipeline-step-title">Analysis runs</div>
-              <div class="pipeline-step-sub">Your harness explores the repo</div>
-            </div>
-            <div class="pipeline-arrow">→</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <div class="pipeline-step-title">Cached to disk</div>
-              <div class="pipeline-step-sub">~/.cache/cachelyze/</div>
-            </div>
-            <div class="pipeline-arrow">→</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <div class="pipeline-step-title">Future calls</div>
-              <div class="pipeline-step-sub">Instant return + diff pass</div>
-            </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-slow"></div>
           </div>
         </div>
+        <div class="how-it-works-text">
+          <h3>Perform a full analysis on first run</h3>
+          <p>
+            When you start a fresh agent conversation, cachelyze invokes your AI harness to explore and analyze the codebase. This takes some time as the agent discovers structure, dependencies, and key files. The analysis is then cached based on the git hash / branch state.
+          </p>
+          <span class="speed-badge">~3-5 seconds</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Cache Hit (Fast) -->
+      <div class="how-it-works-grid">
+        <div class="how-it-works-text">
+          <h3>Subsequent llm threads can use the cached context and ask questions</h3>
+          <p>
+            Subsequent calls return the cached analysis instantly. Working changes are discovered via git tools and merged with the cached base. Ask multiple questions with no waiting.
+          </p>
+          <span class="speed-badge fast">&lt;100ms</span>
+        </div>
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">cachelyze — Cache Hit</div>
+          </div>
+          <div class="terminal-body">
+            <div class="tui-chat" id="chat-fast"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 40px;">
         <p style="font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.6;">
-          On first call, cachelyze invokes your configured AI harness to analyze the codebase and writes a dense analysis. 
-          Subsequent calls return it instantly from cache. Working changes are discovered organically via git tools.
+          The analysis is cached to <code>~/.cache/cachelyze/</code> keyed by git commit hash. Switch branches or commits and the correct cache entry loads automatically. Cache entries can expire with <code>--max-age</code> for automatic re-analysis.
         </p>
         <a href="https://github.com/mateffy/cachelyze#how-it-works" class="link">How it works in detail →</a>
       </div>
@@ -786,20 +1052,20 @@
           <div><span style="color: var(--accent);">$</span> npm install @cachelyze/core</div>
         </div>
         <div class="code-block">
-          <div style="margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">import</span> { analyze, FsStore } <span class="kw" style="color: #a0926f;">from</span> <span style="color: var(--json-key);">"@cachelyze/core"</span></div>
-          <div style="margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">import type</span> { HarnessRunner, RunRequest, RunResult } <span class="kw" style="color: #a0926f;">from</span> <span style="color: var(--json-key);">"@cachelyze/core"</span></div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--accent);">import</span> { analyze, FsStore } <span style="color: var(--accent);">from</span> <span style="color: var(--json-key);">"@cachelyze/core"</span></div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--accent);">import type</span> { HarnessRunner, RunRequest, RunResult } <span style="color: var(--accent);">from</span> <span style="color: var(--json-key);">"@cachelyze/core"</span></div>
           <div style="margin-bottom: 12px; color: var(--caption);">// Custom in-process runner — no subprocess needed</div>
-          <div style="margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">class</span> <span style="color: var(--heading); font-weight: 600;">MyAgentRunner</span> <span class="kw" style="color: #a0926f;">implements</span> <span style="color: var(--heading); font-weight: 600;">HarnessRunner</span> {</div>
-          <div style="padding-left: 16px; margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">readonly</span> name = <span style="color: var(--json-key);">"my-agent"</span></div>
-          <div style="padding-left: 16px; margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">async</span> <span style="color: var(--heading); font-weight: 600;">run</span>(req: RunRequest): Promise&lt;RunResult&gt; {</div>
-          <div style="padding-left: 32px; margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">const</span> output = <span class="kw" style="color: #a0926f;">await</span> myAgent.query(req.prompt, { cwd: req.cwd })</div>
-          <div style="padding-left: 32px; margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">return</span> { output }</div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--accent);">class</span> <span style="color: var(--heading); font-weight: 600;">MyAgentRunner</span> <span style="color: var(--accent);">implements</span> <span style="color: var(--heading); font-weight: 600;">HarnessRunner</span> {</div>
+          <div style="padding-left: 16px; margin-bottom: 8px;"><span style="color: var(--accent);">readonly</span> name = <span style="color: var(--json-key);">"my-agent"</span></div>
+          <div style="padding-left: 16px; margin-bottom: 8px;"><span style="color: var(--accent);">async</span> <span style="color: var(--heading); font-weight: 600;">run</span>(req: RunRequest): Promise&lt;RunResult&gt; {</div>
+          <div style="padding-left: 32px; margin-bottom: 8px;"><span style="color: var(--accent);">const</span> output = <span style="color: var(--accent);">await</span> myAgent.query(req.prompt, { cwd: req.cwd })</div>
+          <div style="padding-left: 32px; margin-bottom: 8px;"><span style="color: var(--accent);">return</span> { output }</div>
           <div style="padding-left: 16px; margin-bottom: 8px;">}</div>
           <div style="margin-bottom: 8px;">}</div>
           <div style="margin-bottom: 8px; color: var(--caption);">// Persistent cache + custom runner</div>
-          <div style="margin-bottom: 8px;"><span class="kw" style="color: #a0926f;">const</span> result = <span class="kw" style="color: #a0926f;">await</span> <span style="color: var(--heading); font-weight: 600;">analyze</span>({</div>
-          <div style="padding-left: 16px; margin-bottom: 8px;">runner: <span class="kw" style="color: #a0926f;">new</span> <span style="color: var(--heading); font-weight: 600;">MyAgentRunner</span>(),</div>
-          <div style="padding-left: 16px; margin-bottom: 8px;">store: <span class="kw" style="color: #a0926f;">new</span> <span style="color: var(--heading); font-weight: 600;">FsStore</span>(),</div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--accent);">const</span> result = <span style="color: var(--accent);">await</span> <span style="color: var(--heading); font-weight: 600;">analyze</span>({</div>
+          <div style="padding-left: 16px; margin-bottom: 8px;">runner: <span style="color: var(--accent);">new</span> <span style="color: var(--heading); font-weight: 600;">MyAgentRunner</span>(),</div>
+          <div style="padding-left: 16px; margin-bottom: 8px;">store: <span style="color: var(--accent);">new</span> <span style="color: var(--heading); font-weight: 600;">FsStore</span>(),</div>
           <div style="padding-left: 16px; margin-bottom: 8px;">prompt: <span style="color: var(--json-key);">"what changed in the auth layer?"</span>,</div>
           <div style="padding-left: 16px; margin-bottom: 8px;">maxAge: <span style="color: var(--heading);">2</span> * <span style="color: var(--heading);">60</span> * <span style="color: var(--heading);">60</span> * <span style="color: var(--heading);">1000</span>, <span style="color: var(--caption);">// 2 hours</span></div>
           <div style="margin-bottom: 8px;">})</div>
@@ -870,7 +1136,7 @@
         output: `<div>{</div>
 <div style="padding-left: 20px;">
   <div><span class="json-key">"analysis"</span>: <span>"Bun monorepo with 4 packages. Core SDK exposes analyze(), pluggable CacheStore and HarnessRunner interfaces. Entry: packages/cli/src/index.ts"</span>,</div>
-  <div><span class="json-key">"fromCache"</span>: <span style="color: #a0926f;">true</span>,</div>
+  <div><span class="json-key">"fromCache"</span>: <span style="color: var(--accent);">true</span>,</div>
   <div><span class="json-key">"gitHash"</span>: <span>"abc123f"</span></div>
 </div>
 <div>}</div>`
@@ -880,8 +1146,8 @@
         output: `<div>{</div>
 <div style="padding-left: 20px;">
   <div><span class="json-key">"analysis"</span>: <span>"JWT middleware refactored in src/auth/middleware.ts. Token expiry now configurable via AUTH_TOKEN_TTL env var."</span>,</div>
-  <div><span class="json-key">"fromCache"</span>: <span style="color: #a0926f;">true</span>,</div>
-  <div><span class="json-key">"diffAnalysis"</span>: <span style="color: #bba88a;">"Added 2 files, modified 1"</span></div>
+  <div><span class="json-key">"fromCache"</span>: <span style="color: var(--accent);">true</span>,</div>
+  <div><span class="json-key">"diffAnalysis"</span>: <span style="color: var(--heading);">"Added 2 files, modified 1"</span></div>
 </div>
 <div>}</div>`
       },
@@ -890,8 +1156,8 @@
         output: `<div>{</div>
 <div style="padding-left: 20px;">
   <div><span class="json-key">"analysis"</span>: <span>"React + TypeScript app. Components in src/components/, state management with Zustand in src/store/. API client in src/lib/api.ts"</span>,</div>
-  <div><span class="json-key">"fromCache"</span>: <span style="color: #a0926f;">false</span>,</div>
-  <div><span class="json-key">"revalidated"</span>: <span style="color: #a0926f;">true</span></div>
+  <div><span class="json-key">"fromCache"</span>: <span style="color: var(--accent);">false</span>,</div>
+  <div><span class="json-key">"revalidated"</span>: <span style="color: var(--accent);">true</span></div>
 </div>
 <div>}</div>`
       }
@@ -985,6 +1251,191 @@
         }, 1500);
       });
     }
+
+    // Hero spinner animation
+    const heroSpinner = document.getElementById('hero-spinner');
+    let heroSpinnerFrame = 0;
+    
+    function animateHeroSpinner() {
+      heroSpinnerFrame = (heroSpinnerFrame + 1) % SPINNER_FRAMES.length;
+      heroSpinner.textContent = SPINNER_FRAMES[heroSpinnerFrame];
+    }
+    
+    setInterval(animateHeroSpinner, 80);
+
+    // Terminal Chat Animations
+    const SLOW_MESSAGES = [
+      {
+        type: 'user',
+        content: 'Can you add a feature to cache codebase analysis?',
+        delay: 500
+      },
+      {
+        type: 'assistant',
+        content: 'I\'ll analyze the codebase structure to understand the project first.',
+        delay: 800
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze',
+        loading: true,
+        duration: 8000,
+        delay: 600
+      },
+      {
+        type: 'tool-result',
+        content: 'Bun monorepo with 4 packages:\n• packages/cli/src/index.ts (entry)\n• packages/core/src/analyze.ts\n• packages/core/src/store.ts\n• packages/core/src/harness.ts\n\nKey: CacheStore interface, HarnessRunner interface',
+        delay: 400
+      },
+      {
+        type: 'assistant',
+        content: 'Great, now I have all the context. Let me implement the caching feature...',
+        delay: 800
+      }
+    ];
+
+    const FAST_MESSAGES = [
+      {
+        type: 'user',
+        content: 'Add a Redis cache store option to the SDK',
+        delay: 300
+      },
+      {
+        type: 'assistant',
+        content: 'Let me check the codebase structure and CacheStore interface...',
+        delay: 200
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze',
+        loading: true,
+        duration: 1000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `This is a Bun monorepo with 4 packages. The core SDK exposes CacheStore and HarnessRunner interfaces. The CacheStore interface is located at packages/core/src/store.ts and defines get(), set(), and delete() methods for caching operations.`,
+        delay: 100
+      },
+      {
+        type: 'assistant',
+        content: 'Now let me check where the cache data is stored...',
+        delay: 300
+      },
+      {
+        type: 'tool',
+        tool: 'cachelyze.analyze --prompt "where is data stored?"',
+        loading: true,
+        duration: 3000,
+        delay: 100
+      },
+      {
+        type: 'tool-result',
+        content: `Cache data is stored in ~/.cache/cachelyze/ and is keyed by the git commit hash. This keeps the cache outside your repository to prevent agents from accidentally reading their own cache files. Each branch and commit gets its own cache entry.`,
+        delay: 200
+      },
+      {
+        type: 'assistant',
+        content: 'Perfect! Now I have everything I need. Cache is stored in ~/.cache/cachelyze/ keyed by git commit hash. This keeps cache outside your repo so agents never accidentally read their own cache files.',
+        delay: 400
+      }
+    ];
+
+    async function animateChat(containerId, messages, loopDelay = 3000) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      async function runSequence() {
+        container.innerHTML = '';
+        
+          for (const msg of messages) {
+          await new Promise(r => setTimeout(r, msg.delay || 300));
+          
+          const el = document.createElement('div');
+          
+          if (msg.type === 'user') {
+            el.className = 'chat-message user';
+            el.innerHTML = `<span class="chat-content">${msg.content}</span>`;
+          } else if (msg.type === 'assistant') {
+            el.className = 'chat-message assistant';
+            el.innerHTML = `<span class="chat-content">${msg.content}</span>`;
+          } else if (msg.type === 'tool') {
+            el.className = 'chat-message assistant';
+            
+            // Parse tool and prompt
+            let toolName = msg.tool;
+            let promptText = '';
+            if (msg.tool.includes(' --prompt ')) {
+              const parts = msg.tool.split(' --prompt ');
+              toolName = parts[0];
+              promptText = parts[1].replace(/"/g, '');
+            }
+            const toolContent = `${toolName}${msg.path ? ` ${msg.path}` : ''}`;
+            const promptHtml = promptText ? `<span class="tool-call-prompt">"${promptText}"</span>` : '';
+            
+            if (msg.loading && msg.duration) {
+              // Loading state with spinner and timer
+              el.innerHTML = `<span class="tool-call loading"><span class="tool-call-left"><span class="tool-call-main"><span class="tool-spinner-inline">⠋</span>${toolContent}</span>${promptHtml}</span><span class="tool-timer">0.0s</span></span>`;
+              const spinnerSpan = el.querySelector('.tool-spinner-inline');
+              const timerSpan = el.querySelector('.tool-timer');
+              let spinnerFrame = 0;
+              let startTime = Date.now();
+              
+              const spinnerInterval = setInterval(() => {
+                spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES.length;
+                if (spinnerSpan) spinnerSpan.textContent = SPINNER_FRAMES[spinnerFrame];
+                
+                // Update timer in seconds
+                const elapsed = Date.now() - startTime;
+                const seconds = (elapsed / 1000).toFixed(1);
+                if (timerSpan) timerSpan.textContent = `${seconds}s`;
+              }, 80);
+              
+              // Show final duration after completion
+              setTimeout(() => {
+                clearInterval(spinnerInterval);
+                const elapsed = Date.now() - startTime;
+                const finalSeconds = Math.round(elapsed / 1000);
+                el.innerHTML = `<span class="tool-call loaded"><span class="tool-call-left"><span class="tool-call-main"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;color:#27c93f;">✓</span>${toolContent}</span>${promptHtml}</span><span class="tool-timer">${finalSeconds}s</span></span>`;
+              }, msg.duration);
+            } else if (msg.instant) {
+              // Instant complete (cache hit)
+              el.innerHTML = `<span class="tool-call loaded"><span class="tool-call-left"><span class="tool-call-main"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;color:#27c93f;">✓</span>${toolContent}</span>${promptHtml}</span><span class="tool-timer">0s</span></span>`;
+            } else {
+              // Normal tool call
+              el.innerHTML = `<span class="tool-call"><span class="tool-call-left"><span class="tool-call-main">${toolContent}</span>${promptHtml}</span></span>`;
+            }
+          } else if (msg.type === 'tool-result') {
+            el.className = 'chat-message assistant';
+            el.innerHTML = `<span class="tool-result">${msg.content}</span>`;
+          }
+          
+          container.appendChild(el);
+          
+          // Trigger animation
+          requestAnimationFrame(() => {
+            el.classList.add('show');
+          });
+          
+          // Wait for tool loading
+          if (msg.type === 'tool' && msg.loading && msg.duration) {
+            await new Promise(r => setTimeout(r, msg.duration));
+          }
+        }
+        
+        // Wait before looping
+        await new Promise(r => setTimeout(r, loopDelay));
+        runSequence();
+      }
+      
+      runSequence();
+    }
+
+    // Start chat animations when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      animateChat('chat-slow', SLOW_MESSAGES, 4000);
+      animateChat('chat-fast', FAST_MESSAGES, 3000);
+    });
   </script>
 </body>
 </html>
