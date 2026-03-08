@@ -30,7 +30,9 @@ npm install -g research.actor
 ```
 
 ```bash
-research
+$ cd /path/to/your/codebase
+
+$ research
 ```
 
 ```json
