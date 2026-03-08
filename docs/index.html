@@ -768,7 +768,8 @@
     }
 
     .micro-terminal {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
       border: 1px solid rgba(251, 191, 36, 0.3);
       border-radius: 3px;
       padding: 4px 6px;
@@ -783,6 +784,31 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      position: relative;
+    }
+
+    .micro-terminal.before {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .micro-terminal.after {
+      background: rgba(39, 201, 63, 0.15);
+      border-color: rgba(39, 201, 63, 0.4);
+    }
+
+    .micro-terminal-label {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      z-index: 5;
+      text-align: right;
+      max-width: 100px;
     }
 
     .micro-terminal::-webkit-scrollbar {
@@ -913,8 +939,12 @@
         
         <!-- Micro terminal comparison -->
         <div class="micro-terminals-container">
-          <div class="micro-terminal before" id="micro-before"></div>
-          <div class="micro-terminal after" id="micro-after"></div>
+          <div class="micro-terminal before" id="micro-before">
+            <div class="micro-terminal-label">WITHOUT CACHELYZE</div>
+          </div>
+          <div class="micro-terminal after" id="micro-after">
+            <div class="micro-terminal-label">WITH CACHELYZE</div>
+          </div>
         </div>
       </div>
     </section>
